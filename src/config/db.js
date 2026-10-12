@@ -9,6 +9,10 @@ const pool = mysql.createPool({
   database: process.env.DB_NAME,
   waitForConnections: true,
   connectionLimit: 10,
+  dateStrings: true,     // las fechas llegan como texto "2026-10-20 10:00:00"
+  decimalNumbers: true,  // los precios llegan como número y no como texto
+  // En la nube (Aiven) la conexión exige SSL. En tu PC (XAMPP) no se usa.
+  ssl: process.env.DB_SSL === 'true' ? { rejectUnauthorized: false } : undefined,
 });
 
 module.exports = pool;
